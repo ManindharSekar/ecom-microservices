@@ -1,6 +1,6 @@
 package com.ecom.app.model;
 
-public enum UserRole {
+public enum UsersRole {
 
     CUSTOMER,ADMIN
 }

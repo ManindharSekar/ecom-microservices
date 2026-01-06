@@ -19,7 +19,7 @@ public class Users {
     private String lastName;
     private String email;
     private String phone;
-    private UserRole role=UserRole.CUSTOMER;
+    private UsersRole role= UsersRole.CUSTOMER;
 
     @OneToOne(cascade = CascadeType.ALL,orphanRemoval = true)
     @JoinColumn(name = "address_id",referencedColumnName = "id")
