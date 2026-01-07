@@ -24,7 +24,7 @@ public class Product {
     private Integer stockQuantity;
     private String category;
     private String imageUrl;
-    private Boolean active=true;
+    private Boolean active = true;
 
     @CreationTimestamp
     private LocalDateTime createdAt;
