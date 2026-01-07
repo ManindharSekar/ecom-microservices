@@ -74,6 +74,7 @@ public class UserService {
                 AddressDTO addressDTO = new AddressDTO();
                 addressDTO.setStreet(user.getAddress().getStreet());
                 addressDTO.setCity(user.getAddress().getCity());
+                addressDTO.setState(user.getAddress().getState());
                 addressDTO.setCountry(user.getAddress().getCountry());
                 addressDTO.setZipCode(user.getAddress().getZipCode());
                 response.setAddress(addressDTO);

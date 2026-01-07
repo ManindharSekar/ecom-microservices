@@ -42,8 +42,8 @@ public class UserController {
     public ResponseEntity<String> updateUser(@PathVariable Long id,@RequestBody UsersRequest usersRequest){
         Boolean updated = userService.updateUser(id,usersRequest);
         if(updated)
-            return ResponseEntity.ok("User Updatred successfully");
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.ok("User Updated successfully");
+        return ResponseEntity.notFound().build();
     }
 
 }
