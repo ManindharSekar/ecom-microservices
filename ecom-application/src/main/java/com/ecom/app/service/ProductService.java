@@ -7,7 +7,9 @@ import com.ecom.app.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -18,8 +20,8 @@ public class ProductService {
 
     public ProductResponse SaveProduct(ProductRequest productRequest) {
         Product product = new Product();
-        UpdateProductRequest(product,productRequest);
-        Product savedProduct=productRepository.save(product);
+        UpdateProductRequest(product, productRequest);
+        Product savedProduct = productRepository.save(product);
         return mapToProductResponse(savedProduct);
 
     }
@@ -47,10 +49,30 @@ public class ProductService {
     }
 
     public Optional<ProductResponse> updateProduct(ProductRequest productRequest, Long id) {
-        return productRepository.findById(id).map(existingProduct->{
-            UpdateProductRequest(existingProduct,productRequest);
-            Product saveProduct=productRepository.save(existingProduct);
+        return productRepository.findById(id).map(existingProduct -> {
+            UpdateProductRequest(existingProduct, productRequest);
+            Product saveProduct = productRepository.save(existingProduct);
             return mapToProductResponse(saveProduct);
         });
+    }
+
+    public List<ProductResponse> findAllProducts() {
+        return productRepository.findByActiveTrue().stream().map(this::mapToProductResponse).collect(Collectors.toList());
+    }
+
+    public boolean deleteProduct(Long id) {
+        return productRepository.findById(id).map(product -> {
+            product.setActive(false);
+            productRepository.save(product);
+            return true;
+        }).orElse(false);
+    }
+
+
+    public List<ProductResponse> searchByProductName(String keyword) {
+        return productRepository.searchProduct(keyword)
+                .stream()
+                .map(this::mapToProductResponse).collect(Collectors.toList());
+
     }
 }

@@ -20,13 +20,13 @@ public class UserService {
     private final UserRepository userRepository;
 
 
-    public List<UsersResponse> getAllUsers(){
+    public List<UsersResponse> getAllUsers() {
 
-        return userRepository.findAll().stream().map(this::mapToUserResponse).collect(Collectors.toList()) ;
+        return userRepository.findAll().stream().map(this::mapToUserResponse).collect(Collectors.toList());
     }
 
 
-    public void CreateUsers(UsersRequest usersRequest){
+    public void CreateUsers(UsersRequest usersRequest) {
 
         Users users = new Users();
         updateUserFromRequest(users, usersRequest);
@@ -38,7 +38,7 @@ public class UserService {
         users.setLastName(usersRequest.getLastName());
         users.setEmail(usersRequest.getEmail());
         users.setPhone(usersRequest.getPhone());
-        if(usersRequest.getAddress()!=null){
+        if (usersRequest.getAddress() != null) {
             Address address = new Address();
             address.setStreet(usersRequest.getAddress().getStreet());
             address.setCity(usersRequest.getAddress().getCity());
@@ -55,30 +55,31 @@ public class UserService {
     }
 
     public Boolean updateUser(Long id, UsersRequest usersRequest) {
-    return userRepository.findById(id).map(existingUser->{updateUserFromRequest(existingUser,usersRequest);
-    userRepository.save(existingUser);
-    return true;
-    }).orElse(false) ;
-        }
+        return userRepository.findById(id).map(existingUser -> {
+            updateUserFromRequest(existingUser, usersRequest);
+            userRepository.save(existingUser);
+            return true;
+        }).orElse(false);
+    }
 
 
-        private UsersResponse mapToUserResponse(Users user){
-            UsersResponse response = new UsersResponse();
-            response.setId(String.valueOf(user.getId()));
-            response.setFirstName(user.getFirstName());
-            response.setLastName(user.getLastName());
-            response.setEmail(user.getEmail());
-            response.setPhone(user.getPhone());
-            response.setRole(user.getRole());
-            if(user.getAddress()!=null){
-                AddressDTO addressDTO = new AddressDTO();
-                addressDTO.setStreet(user.getAddress().getStreet());
-                addressDTO.setCity(user.getAddress().getCity());
-                addressDTO.setState(user.getAddress().getState());
-                addressDTO.setCountry(user.getAddress().getCountry());
-                addressDTO.setZipCode(user.getAddress().getZipCode());
-                response.setAddress(addressDTO);
-            }
-            return response;
+    private UsersResponse mapToUserResponse(Users user) {
+        UsersResponse response = new UsersResponse();
+        response.setId(String.valueOf(user.getId()));
+        response.setFirstName(user.getFirstName());
+        response.setLastName(user.getLastName());
+        response.setEmail(user.getEmail());
+        response.setPhone(user.getPhone());
+        response.setRole(user.getRole());
+        if (user.getAddress() != null) {
+            AddressDTO addressDTO = new AddressDTO();
+            addressDTO.setStreet(user.getAddress().getStreet());
+            addressDTO.setCity(user.getAddress().getCity());
+            addressDTO.setState(user.getAddress().getState());
+            addressDTO.setCountry(user.getAddress().getCountry());
+            addressDTO.setZipCode(user.getAddress().getZipCode());
+            response.setAddress(addressDTO);
         }
+        return response;
+    }
 }

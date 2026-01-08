@@ -19,29 +19,29 @@ public class UserController {
 
 
     @GetMapping
-    public ResponseEntity<List<UsersResponse>> getAllUsers(){
+    public ResponseEntity<List<UsersResponse>> getAllUsers() {
         return new ResponseEntity<>(userService.getAllUsers(), HttpStatus.OK);
     }
 
     @PostMapping
-    public String CreateUsers(@RequestBody UsersRequest usersRequest){
+    public String CreateUsers(@RequestBody UsersRequest usersRequest) {
         userService.CreateUsers(usersRequest);
         return "User added successfully";
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UsersResponse> getUser(@PathVariable Long id){
+    public ResponseEntity<UsersResponse> getUser(@PathVariable Long id) {
 
         return userService.fetchUser(id)
                 .map(ResponseEntity::ok)
-                .orElseGet(()->ResponseEntity.notFound().build());
+                .orElseGet(() -> ResponseEntity.notFound().build());
 
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<String> updateUser(@PathVariable Long id,@RequestBody UsersRequest usersRequest){
-        Boolean updated = userService.updateUser(id,usersRequest);
-        if(updated)
+    public ResponseEntity<String> updateUser(@PathVariable Long id, @RequestBody UsersRequest usersRequest) {
+        Boolean updated = userService.updateUser(id, usersRequest);
+        if (updated)
             return ResponseEntity.ok("User Updated successfully");
         return ResponseEntity.notFound().build();
     }
