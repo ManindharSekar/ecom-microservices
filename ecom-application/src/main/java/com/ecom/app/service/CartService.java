@@ -1,6 +1,7 @@
 package com.ecom.app.service;
 
 import com.ecom.app.dto.CartItemRequest;
+import com.ecom.app.dto.CartItemResponse;
 import com.ecom.app.model.CartItem;
 import com.ecom.app.model.Product;
 import com.ecom.app.model.Users;
@@ -9,10 +10,13 @@ import com.ecom.app.repository.ProductRepository;
 import com.ecom.app.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.apache.catalina.User;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -71,5 +75,11 @@ public class CartService {
             return true;
         }
         return false;
+    }
+
+
+
+    public List<CartItem> getCart(String userId) {
+        return userRepository.findById(Long.valueOf(userId)).map(cartItemRepository::findByUsers).orElseGet(List::of);
     }
 }
