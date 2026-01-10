@@ -82,4 +82,8 @@ public class CartService {
     public List<CartItem> getCart(String userId) {
         return userRepository.findById(Long.valueOf(userId)).map(cartItemRepository::findByUsers).orElseGet(List::of);
     }
+
+    public void clearCart(String userId) {
+        userRepository.findById(Long.valueOf(userId)).ifPresent(cartItemRepository::deleteByUsers);
+    }
 }
