@@ -20,6 +20,17 @@ spring:
     database-platform: org.hibernate.dialect.H2Dialect
 
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
+
+
+
 
 
 
