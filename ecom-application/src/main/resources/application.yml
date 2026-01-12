@@ -28,7 +28,15 @@ management:
   endpoint:
     health:
       show-details: always
+  info:
+    env:
+      enabled: true
 
+info:
+  app:
+    name: MyNewApp
+    description: App build by us
+    version: 1.0.0
 
 
 
