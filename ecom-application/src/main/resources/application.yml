@@ -30,9 +30,11 @@ management:
       show-details: always
     shutdown:
       enabled: true
+server:
   info:
     env:
       enabled: true
+  shutdown: graceful
 
 info:
   app:
