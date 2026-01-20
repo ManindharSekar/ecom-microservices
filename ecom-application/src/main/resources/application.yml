@@ -24,7 +24,7 @@ management:
   endpoints:
     web:
       exposure:
-        include: '*'
+        include: beans,health
   endpoint:
     health:
       show-details: always
